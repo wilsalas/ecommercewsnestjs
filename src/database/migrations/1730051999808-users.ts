@@ -7,7 +7,7 @@ export class Users1730051999808 implements MigrationInterface {
     try {
       await queryRunner.databaseConnection
         .db()
-        .createCollection(Entities.Users);
+        .createCollection(Entities.USERS);
     } catch (error) {
       console.error(error);
     }
@@ -15,7 +15,7 @@ export class Users1730051999808 implements MigrationInterface {
 
   public async down(queryRunner: MongoQueryRunner): Promise<void> {
     try {
-      await queryRunner.databaseConnection.db().dropCollection(Entities.Users);
+      await queryRunner.databaseConnection.db().dropCollection(Entities.USERS);
     } catch (error) {
       console.error(error);
     }

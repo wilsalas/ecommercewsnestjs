@@ -10,7 +10,7 @@ import {
 import { ObjectId } from 'mongodb';
 import { Products } from './products.entity';
 
-@Entity({ name: Entities.Items })
+@Entity({ name: Entities.ITEMS })
 export class Items {
   @ObjectIdColumn()
   _id: ObjectId;

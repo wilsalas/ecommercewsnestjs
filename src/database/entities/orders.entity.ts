@@ -10,7 +10,7 @@ import {
 import { ObjectId } from 'mongodb';
 import { Items } from './items.entity';
 
-@Entity({ name: Entities.Orders })
+@Entity({ name: Entities.ORDERS })
 export class Orders {
   @ObjectIdColumn()
   _id: ObjectId;
@@ -24,7 +24,7 @@ export class Orders {
   @Column({ enum: OrderStatus })
   status: OrderStatus;
 
-  @Column(() => Items)
+  @Column()
   items: Array<Items>;
 
   @CreateDateColumn({ name: 'created_at' })

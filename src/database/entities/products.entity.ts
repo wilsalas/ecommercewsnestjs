@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: Entities.Products })
+@Entity({ name: Entities.PRODUCTS })
 export class Products {
   @ObjectIdColumn()
   _id: ObjectId;

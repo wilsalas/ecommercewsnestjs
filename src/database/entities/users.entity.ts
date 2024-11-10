@@ -13,7 +13,7 @@ import { Exclude } from 'class-transformer';
 import { hash } from 'bcrypt';
 import { Entities, Roles } from '@/common/enums';
 
-@Entity({ name: Entities.Users })
+@Entity({ name: Entities.USERS })
 export class Users {
   @ObjectIdColumn()
   _id: ObjectId;

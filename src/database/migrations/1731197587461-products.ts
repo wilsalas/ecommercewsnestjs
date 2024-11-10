@@ -7,7 +7,7 @@ export class Products1731197587461 implements MigrationInterface {
     try {
       await queryRunner.databaseConnection
         .db()
-        .createCollection(Entities.Products);
+        .createCollection(Entities.PRODUCTS);
     } catch (error) {
       console.error(error);
     }
@@ -17,7 +17,7 @@ export class Products1731197587461 implements MigrationInterface {
     try {
       await queryRunner.databaseConnection
         .db()
-        .dropCollection(Entities.Products);
+        .dropCollection(Entities.PRODUCTS);
     } catch (error) {
       console.error(error);
     }

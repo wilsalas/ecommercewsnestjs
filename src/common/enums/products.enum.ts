@@ -1,7 +1,7 @@
 export enum ProductCategory {
-  Electronics = 'electronics',
-  Fashion = 'fashion',
-  Pets = 'pets',
-  Books = 'books',
-  Babys = 'babys',
+  ELECTRONICS = 'electronics',
+  FASHION = 'fashion',
+  PETS = 'pets',
+  BOOKS = 'books',
+  BABYS = 'babys',
 }

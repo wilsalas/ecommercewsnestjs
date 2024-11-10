@@ -7,7 +7,7 @@ export class Carts1731198132203 implements MigrationInterface {
     try {
       await queryRunner.databaseConnection
         .db()
-        .createCollection(Entities.Carts);
+        .createCollection(Entities.CARTS);
     } catch (error) {
       console.error(error);
     }
@@ -15,7 +15,7 @@ export class Carts1731198132203 implements MigrationInterface {
 
   public async down(queryRunner: MongoQueryRunner): Promise<void> {
     try {
-      await queryRunner.databaseConnection.db().dropCollection(Entities.Carts);
+      await queryRunner.databaseConnection.db().dropCollection(Entities.CARTS);
     } catch (error) {
       console.error(error);
     }
