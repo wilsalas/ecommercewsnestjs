@@ -1,5 +1,5 @@
 import { ConfigModuleOptions } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
 
 export const CONFIG_MODULE: ConfigModuleOptions = {
   isGlobal: true,
@@ -8,6 +8,6 @@ export const CONFIG_MODULE: ConfigModuleOptions = {
     NODE_ENV: Joi.string()
       .valid('development', 'production', 'test')
       .default('development'),
-    PORT: Joi.number().default(3000),
+    PORT: Joi.number().default(5000),
   }),
 };
