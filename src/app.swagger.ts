@@ -20,7 +20,7 @@ const initSwagger = (app: INestApplication) => {
     },
   };
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, document, customOptions);
+  SwaggerModule.setup('docs', app, document, customOptions);
 };
 
 export default initSwagger;

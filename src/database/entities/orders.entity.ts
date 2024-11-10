@@ -31,8 +31,8 @@ export class Orders {
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', nullable: true })
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @DeleteDateColumn({ name: 'deleted_at', nullable: true })
-  deletedAt: Date;
+  deletedAt?: Date;
 }
