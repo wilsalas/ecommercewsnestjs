@@ -21,8 +21,8 @@ export class Users {
   @Column()
   name: string;
 
-  @Column({ nullable: true })
-  lastName: string;
+  @Column({ nullable: true, default: '' })
+  lastName?: string;
 
   @Column({ unique: true })
   email: string;
@@ -31,23 +31,23 @@ export class Users {
   @Column()
   password: string;
 
-  @Column({ enum: Roles })
+  @Column({ enum: Roles, default: Roles.USER })
   role: Roles;
 
   @Column({ default: true })
   active: boolean;
 
-  @Column({ nullable: true })
-  image: string;
+  @Column({ nullable: true, default: '' })
+  image?: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', nullable: true })
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @DeleteDateColumn({ name: 'deleted_at', nullable: true })
-  deletedAt: Date;
+  deletedAt?: Date;
 
   @BeforeInsert()
   @BeforeUpdate()

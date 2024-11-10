@@ -94,7 +94,14 @@
     ],
     "coveragePathIgnorePatterns": [
       "coverage",
+      "main.ts",
+      ".swagger.ts",
       ".module.ts",
+      ".dto.ts",
+      "src/config",
+      "src/database",
+      "src/common/enums",
+      "src/common/mock",
       "node_modules"
     ],
     "modulePathIgnorePatterns": [],
