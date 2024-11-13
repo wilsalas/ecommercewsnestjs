@@ -5,6 +5,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, UpdateUserDto } from './dto';
@@ -16,10 +17,20 @@ export class UsersService {
     @InjectRepository(Users) private usersRepository: UsersRepository,
   ) {}
 
-  async find(): Promise<Array<Users>> {
+  async find(): Promise<Users[]> {
     return await this.usersRepository.find({
-      select: ['_id', 'name', 'lastName', 'email', 'role', 'image'],
+      select: ['_id', 'name', 'lastName', 'email', 'role', 'image', 'active'],
     });
+  }
+
+  async findOneByEmail(email: string): Promise<Users> {
+    const user = await this.usersRepository.findOne({
+      where: { email },
+      select: ['_id', 'role', 'email', 'password', 'active'],
+    });
+    if (!user) throw new NotFoundException('User not found');
+    if (!user.active) throw new UnauthorizedException('User Inactive');
+    return user;
   }
 
   async findOne(id: string): Promise<Users> {
@@ -27,9 +38,10 @@ export class UsersService {
     if (!ObjectId.isValid(id)) throw notFoundError;
     const user = await this.usersRepository.findOne({
       where: { _id: new ObjectId(id) },
-      select: ['_id', 'name', 'lastName', 'email', 'role', 'image'],
+      select: ['_id', 'name', 'lastName', 'email', 'role', 'image', 'active'],
     });
     if (!user) throw notFoundError;
+    if (!user.active) throw new UnauthorizedException('User Inactive');
     return user;
   }
 
@@ -42,10 +54,10 @@ export class UsersService {
       if (userFound) throw new ConflictException('Email already exists');
       const user = new Users();
       user.name = createUserDto.name;
-      user.lastName = createUserDto.lastName ?? '';
+      user.lastName = createUserDto.lastName;
       user.email = createUserDto.email;
       user.password = createUserDto.password;
-      user.image = createUserDto.image ?? '';
+      user.image = createUserDto.image;
       await this.usersRepository.save(user);
       return 'User created success!';
     } catch (error) {

@@ -25,7 +25,7 @@ export class Orders {
   status: OrderStatus;
 
   @Column()
-  items: Array<Items>;
+  items: Items[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

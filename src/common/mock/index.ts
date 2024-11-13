@@ -1,5 +1,5 @@
 import { Users } from '@/database/entities';
-import { Roles } from '../enums';
+import { Role } from '../enums';
 import { ObjectId } from 'mongodb';
 import { CreateUserDto, UpdateUserDto } from '@/modules/users/dto';
 import { UsersService } from '@/modules/users/users.service';
@@ -13,14 +13,15 @@ export const mockUser: Users = {
   lastName: '',
   email: 'usertest@mail.com',
   password: 'passwordTest',
-  role: Roles.ADMIN,
+  role: Role.ADMIN,
   active: true,
   image: '',
   createdAt: new Date(),
   hashPassword: async () => Promise.resolve(),
+  setDefaults: () => null,
 };
 
-export const mockUsers: Array<Users> = [mockUser];
+export const mockUsers: Users[] = [mockUser];
 
 export const mockCreateUserDto: CreateUserDto = { ...mockUser };
 
