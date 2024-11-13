@@ -5,6 +5,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, UpdateUserDto } from './dto';
@@ -18,16 +19,17 @@ export class UsersService {
 
   async find(): Promise<Users[]> {
     return await this.usersRepository.find({
-      select: ['_id', 'name', 'lastName', 'email', 'role', 'image'],
+      select: ['_id', 'name', 'lastName', 'email', 'role', 'image', 'active'],
     });
   }
 
   async findOneByEmail(email: string): Promise<Users> {
     const user = await this.usersRepository.findOne({
       where: { email },
-      select: ['_id', 'role', 'email', 'password'],
+      select: ['_id', 'role', 'email', 'password', 'active'],
     });
     if (!user) throw new NotFoundException('User not found');
+    if (!user.active) throw new UnauthorizedException('User Inactive');
     return user;
   }
 
@@ -36,9 +38,10 @@ export class UsersService {
     if (!ObjectId.isValid(id)) throw notFoundError;
     const user = await this.usersRepository.findOne({
       where: { _id: new ObjectId(id) },
-      select: ['_id', 'name', 'lastName', 'email', 'role', 'image'],
+      select: ['_id', 'name', 'lastName', 'email', 'role', 'image', 'active'],
     });
     if (!user) throw notFoundError;
+    if (!user.active) throw new UnauthorizedException('User Inactive');
     return user;
   }
 

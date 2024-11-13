@@ -9,12 +9,11 @@ import { IRequestUser } from '@/common/interfaces';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private readonly jwtService: JwtService,
+    private jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<Users> {
     const user = await this.usersService.findOneByEmail(email);
-    if (!user.active) throw new UnauthorizedException('User Inactive');
     const comparePassword = await compare(password, user.password);
     if (!comparePassword) {
       throw new UnauthorizedException('Credentials incorrect');
@@ -22,14 +21,15 @@ export class AuthService {
     return user;
   }
 
-  signIn(requestUser: IRequestUser) {
+  async validateJwtUser(id: string): Promise<Users> {
+    return await this.usersService.findOne(id);
+  }
+
+  async signIn(requestUser: IRequestUser) {
     return {
       email: requestUser.email,
       role: requestUser.role,
-      access_token: this.jwtService.sign({
-        sub: requestUser.sub,
-        role: requestUser.role,
-      }),
+      access_token: this.jwtService.sign({ sub: requestUser.sub }),
     };
   }
 

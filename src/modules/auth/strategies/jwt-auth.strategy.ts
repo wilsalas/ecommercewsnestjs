@@ -4,10 +4,14 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import { Environment } from '@/common/enums';
 import { IJwtAuthPayload, IRequestUser } from '@/common/interfaces';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class JwtAuthStrategy extends PassportStrategy(Strategy) {
-  constructor(private config: ConfigService) {
+  constructor(
+    private config: ConfigService,
+    private authService: AuthService,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -16,6 +20,10 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(jwtPayload: IJwtAuthPayload): Promise<IRequestUser> {
-    return { ...jwtPayload }; // query redis session cache
+    const result = await this.authService.validateJwtUser(jwtPayload.sub);
+    return {
+      ...result,
+      sub: result._id.toString(),
+    };
   }
 }

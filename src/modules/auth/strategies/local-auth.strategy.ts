@@ -16,9 +16,8 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
   async validate(email: string, password: string): Promise<IRequestUser> {
     const result = await this.authService.validateUser(email, password);
     return {
+      ...result,
       sub: result._id.toString(),
-      email: result.email,
-      role: result.role,
     };
   }
 }

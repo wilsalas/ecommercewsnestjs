@@ -14,7 +14,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @ApiBody({ type: SignInDto })
   @Post('/signIn')
-  signIn(@RequestUser() requestUser: IRequestUser) {
-    return this.authService.signIn(requestUser);
+  async signIn(@RequestUser() requestUser: IRequestUser) {
+    return await this.authService.signIn(requestUser);
   }
 }
