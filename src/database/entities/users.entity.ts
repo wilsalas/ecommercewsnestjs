@@ -11,7 +11,7 @@ import {
 import { ObjectId } from 'mongodb';
 import { Exclude } from 'class-transformer';
 import { hash } from 'bcrypt';
-import { Entities, Roles } from '@/common/enums';
+import { Entities, Role } from '@/common/enums';
 
 @Entity({ name: Entities.USERS })
 export class Users {
@@ -21,8 +21,8 @@ export class Users {
   @Column()
   name: string;
 
-  @Column({ nullable: true, default: '' })
-  lastName?: string;
+  @Column({ nullable: true })
+  lastName?: string = '';
 
   @Column({ unique: true })
   email: string;
@@ -31,14 +31,14 @@ export class Users {
   @Column()
   password: string;
 
-  @Column({ enum: Roles, default: Roles.USER })
-  role: Roles;
+  @Column({ enum: Role })
+  role?: Role = Role.USER;
 
-  @Column({ default: true })
-  active: boolean;
+  @Column()
+  active?: boolean = true;
 
-  @Column({ nullable: true, default: '' })
-  image?: string;
+  @Column({ nullable: true })
+  image?: string = '';
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -48,6 +48,14 @@ export class Users {
 
   @DeleteDateColumn({ name: 'deleted_at', nullable: true })
   deletedAt?: Date;
+
+  @BeforeInsert()
+  setDefaults() {
+    if (!this.lastName) this.lastName = '';
+    if (!this.role) this.role = Role.USER;
+    if (!this.active) this.active = true;
+    if (!this.image) this.image = '';
+  }
 
   @BeforeInsert()
   @BeforeUpdate()

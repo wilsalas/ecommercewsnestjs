@@ -1,13 +1,17 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from '@/common/decorators';
+import { Role } from '@/common/enums';
 
 @ApiTags('Users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
+  @Auth(Role.ADMIN)
   @Get('/find')
   async find() {
     return await this.usersService.find();

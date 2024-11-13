@@ -19,7 +19,7 @@ export class Carts {
   userId: ObjectId;
 
   @Column()
-  items: Array<Items>;
+  items: Items[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
