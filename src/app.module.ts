@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { CacheManagerProviderModule } from './common/providers';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CacheManagerProviderModule } from './common/providers';
     CacheManagerProviderModule,
     AuthModule,
     UsersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

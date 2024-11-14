@@ -30,7 +30,7 @@ export class UsersController {
     return await this.usersService.create(createUserDto);
   }
 
-  @Auth(Role.ADMIN, Role.USER)
+  @Auth()
   @Put('/update')
   async update(
     @RequestUser() requestUser: IRequestUser,

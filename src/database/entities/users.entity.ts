@@ -40,13 +40,13 @@ export class Users {
   @Column({ nullable: true })
   image?: string = '';
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', nullable: true })
+  @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 
   @BeforeInsert()

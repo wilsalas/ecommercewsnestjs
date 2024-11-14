@@ -15,7 +15,7 @@ export class Orders {
   @ObjectIdColumn()
   _id: ObjectId;
 
-  @Column({ name: 'user_id' })
+  @Column()
   userId: ObjectId;
 
   @Column()
@@ -27,12 +27,12 @@ export class Orders {
   @Column()
   items: Items[];
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', nullable: true })
+  @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 }

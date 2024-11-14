@@ -25,8 +25,9 @@
     "migration:create": "typeorm migration:create ./src/database/migrations/orders",
     "migration:run": "npm run typeorm -- migration:run -d data.source.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d data.source.ts",
-    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create -n ./src/database/seeders/products",
-    "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d data.source.ts"
+    "seeder:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create -n ./src/database/seeders/products",
+    "seeder:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d data.source.ts",
+    "seeder:run:file": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d data.source.ts -n ./src/database/seeders/1731197622632-products.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
