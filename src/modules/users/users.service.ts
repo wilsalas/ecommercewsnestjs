@@ -52,13 +52,8 @@ export class UsersService {
         select: ['email'],
       });
       if (userFound) throw new ConflictException('Email already exists');
-      const user = new Users();
-      user.name = createUserDto.name;
-      user.lastName = createUserDto.lastName;
-      user.email = createUserDto.email;
-      user.password = createUserDto.password;
-      user.image = createUserDto.image;
-      await this.usersRepository.save(user);
+      const newUser = this.usersRepository.create(createUserDto);
+      await this.usersRepository.save(newUser);
       return 'User created success!';
     } catch (error) {
       throw new BadRequestException(error);

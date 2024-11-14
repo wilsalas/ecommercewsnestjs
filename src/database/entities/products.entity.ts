@@ -14,7 +14,7 @@ export class Products {
   @ObjectIdColumn()
   _id: ObjectId;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column()
@@ -26,15 +26,18 @@ export class Products {
   @Column()
   stock: number;
 
+  @Column()
+  image: string;
+
   @Column({ enum: ProductCategory })
   category: ProductCategory;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', nullable: true })
+  @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 }
