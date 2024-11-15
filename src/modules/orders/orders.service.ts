@@ -95,13 +95,9 @@ export class OrdersService {
 
   @Cron(CronExpression.EVERY_30_MINUTES)
   async completeOrder(): Promise<void> {
-    try {
-      await this.ordersRepository.update(
-        { status: OrderStatus.PENDING },
-        { status: OrderStatus.COMPLETED },
-      );
-    } catch (error) {
-      throw new BadRequestException(error);
-    }
+    await this.ordersRepository.update(
+      { status: OrderStatus.PENDING },
+      { status: OrderStatus.COMPLETED },
+    );
   }
 }
