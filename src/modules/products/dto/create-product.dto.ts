@@ -22,13 +22,13 @@ export class CreateProductDto {
   @MinLength(5)
   description: string;
 
-  @ApiProperty({ default: '' })
+  @ApiProperty({ default: 10 })
   @IsNotEmpty()
   @IsNumber()
   @Min(10)
   price: number;
 
-  @ApiProperty({ default: '' })
+  @ApiProperty({ default: 1 })
   @IsNotEmpty()
   @IsNumber()
   @Min(1)

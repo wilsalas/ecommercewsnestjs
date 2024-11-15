@@ -14,6 +14,9 @@ export const CACHE_MANAGER_MODULE: CacheModuleAsyncOptions = {
         port: configService.get<number>(Environment.REDIS_PORT),
       },
     });
-    return { store: () => store };
+    return {
+      store: () => store,
+      ttl: configService.get<number>(Environment.CACHE_MANAGER_TTL),
+    };
   },
 };

@@ -1,5 +1,6 @@
 import { Entities, OrderStatus } from '@/common/enums';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -9,6 +10,7 @@ import {
 } from 'typeorm';
 import { ObjectId } from 'mongodb';
 import { Items } from './items.entity';
+import { currentDate } from '@/common/format';
 
 @Entity({ name: Entities.ORDERS })
 export class Orders {
@@ -27,6 +29,9 @@ export class Orders {
   @Column()
   items: Items[];
 
+  @Column()
+  cancellationDeadline: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -35,4 +40,11 @@ export class Orders {
 
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
+
+  @BeforeInsert()
+  setCancellationDeadline() {
+    const cancellationDeadline = currentDate;
+    cancellationDeadline.setMinutes(cancellationDeadline.getMinutes() + 30);
+    this.cancellationDeadline = cancellationDeadline;
+  }
 }

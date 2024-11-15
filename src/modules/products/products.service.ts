@@ -28,11 +28,11 @@ export class ProductsService {
   async getProductById(id: string): Promise<Products> {
     const notFoundError = new NotFoundException('Product not found');
     if (!ObjectId.isValid(id)) throw notFoundError;
-    const user = await this.productsRepository.findOne({
+    const product = await this.productsRepository.findOne({
       where: { _id: new ObjectId(id) },
     });
-    if (!user) throw notFoundError;
-    return user;
+    if (!product) throw notFoundError;
+    return product;
   }
 
   async create(createProductDto: CreateProductDto): Promise<string> {

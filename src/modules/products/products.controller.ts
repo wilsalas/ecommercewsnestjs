@@ -10,19 +10,19 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
-import { CacheInterceptor } from '@nestjs/cache-manager';
 import { Auth } from '@/common/decorators';
 import { CreateProductDto, UpdateProductDto } from './dto';
 import { Role } from '@/common/enums';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @ApiTags('Products')
 @ApiBearerAuth()
-@UseInterceptors(CacheInterceptor)
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Auth()
+  @UseInterceptors(CacheInterceptor)
   @Get('/getCategories')
   async getCategories() {
     return await this.productsService.getCategories();
@@ -32,6 +32,13 @@ export class ProductsController {
   @Get('/getProducts')
   async getProducts() {
     return await this.productsService.getProducts();
+  }
+
+  @Auth()
+  @ApiParam({ name: 'id' })
+  @Get('/getProductById/:id')
+  async getProductById(@Param('id') id: string) {
+    return await this.productsService.getProductById(id);
   }
 
   @Auth(Role.ADMIN)
@@ -44,7 +51,7 @@ export class ProductsController {
   @ApiParam({ name: 'id' })
   @Put('/update/:id')
   async update(
-    @Param() id: string,
+    @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ) {
     return await this.productsService.update(id, updateProductDto);
@@ -53,7 +60,7 @@ export class ProductsController {
   @Auth(Role.ADMIN)
   @ApiParam({ name: 'id' })
   @Delete('/delete/:id')
-  async delete(@Param() id: string) {
+  async delete(@Param('id') id: string) {
     return await this.productsService.delete(id);
   }
 }
