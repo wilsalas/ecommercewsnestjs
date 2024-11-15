@@ -1,10 +1,10 @@
 import { Entities, ProductCategory } from '@/common/enums';
+import { ObjectId } from 'mongodb';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ObjectId,
   ObjectIdColumn,
   UpdateDateColumn,
 } from 'typeorm';

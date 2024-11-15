@@ -19,9 +19,9 @@ export class UsersController {
   }
 
   @Auth(Role.ADMIN)
-  @ApiParam({ name: 'id', type: String })
+  @ApiParam({ name: 'id' })
   @Get('/findOne/:id')
-  async findOne(@Param() id: string) {
+  async findOne(@Param('id') id: string) {
     return await this.usersService.findOne(id);
   }
 
