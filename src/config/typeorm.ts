@@ -16,5 +16,10 @@ export const TYPEORM_MODULE: TypeOrmModuleAsyncOptions = {
     entities: [path.join(__dirname, '/../**/**.entity{.ts,.js}')],
     synchronize: false,
     useUnifiedTopology: true,
+    extra: {
+      authSource: configService.get<string>(Environment.DB_EXTRA_AUTH_SOURCE),
+      ssl: configService.get<boolean>(Environment.DB_EXTRA_SSL),
+      query: configService.get<string>(Environment.DB_EXTRA_QUERY),
+    },
   }),
 };

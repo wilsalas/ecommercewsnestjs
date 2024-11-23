@@ -17,6 +17,11 @@ const dataSourceOptions: DataSourceOptions & SeederOptions = {
   entities: [env.TYPEORM_ENTITIES || ''],
   migrations: [env.TYPEORM_MIGRATIONS || ''],
   seeds: [env.TYPEORM_SEEDERS || ''],
+  extra: {
+    authSource: env.DB_EXTRA_AUTH_SOURCE,
+    ssl: env.DB_EXTRA_SSL,
+    query: env.DB_EXTRA_QUERY,
+  },
 };
 
 export default new DataSource(dataSourceOptions);

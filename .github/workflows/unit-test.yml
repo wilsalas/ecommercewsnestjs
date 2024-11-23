@@ -1,0 +1,36 @@
+name: Unit Tests
+run-name: unit-tests
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+      continue-on-error:
+        required: false
+        type: boolean
+        default: false
+      test-cmd:
+        required: false
+        type: string
+        default: 'npm run test'
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ inputs.continue-on-error }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: ${{ inputs.test-cmd }}
